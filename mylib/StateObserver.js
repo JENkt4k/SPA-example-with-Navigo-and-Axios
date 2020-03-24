@@ -1,6 +1,6 @@
-import * as views from "./components/views";
-import { Header, Nav, Footer } from "./components";
-import * as stateStore from "./store";
+import * as views from "../components/views";
+import { Header, Nav, Footer } from "../components";
+import * as stateStore from "../store";
 
 export class StateObserver {
   constructor(subject, stateContext) {
@@ -29,6 +29,10 @@ export class StateObserver {
             `;
       this.addPicOnFormSubmit(this.stateContext);
     }
+  }
+
+  refreshObserver() {
+    this.render();
   }
 
   addPicOnFormSubmit(st) {

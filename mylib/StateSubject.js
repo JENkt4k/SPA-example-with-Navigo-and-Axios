@@ -26,4 +26,10 @@ export class StateSubject {
   unregisterObserver(stateObserver) {
     this.observables = this.observables.filter(obs => obs !== stateObserver);
   }
+
+  refreshStateView() {
+    this.observables.forEach(element => {
+      element.refreshObserver();
+    });
+  }
 }
