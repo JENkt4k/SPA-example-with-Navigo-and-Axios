@@ -1,9 +1,9 @@
 import * as state from "./store";
-import { StateSubject } from "./mylib/StateSubject";
-import { NavigatableObserver } from "./mylib/NavigatableObserver";
+import { StateSubject } from "./lib/StateSubject";
+import { NavigatableObserver } from "./lib/NavigatableObserver";
 import Navigo from "navigo";
 import { capitalize } from "lodash";
-import { BlogObserver } from "./mylib/BlogObserver";
+import { BlogObserver } from "./lib/BlogObserver";
 
 const router = new Navigo(window.location.origin);
 
