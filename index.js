@@ -19,7 +19,7 @@ pages.push(new BlogObserver(appState, appState.stateStore.Blog));
 pages.push(new NavigatableObserver(appState, appState.stateStore.Gallery));
 pages.push(new NavigatableObserver(appState, appState.stateStore.Home));
 
-//when state changes, we use a clear "setState" instead of the abiguois "render"
+//when state changes, we use a clear "setState" instead of the ambiguous "render"
 router
   .on({
     ":page": params =>
