@@ -1,24 +1,29 @@
-import * as state from "./store";
-import { StateSubject } from "./lib/StateSubject";
-import { NavigatableObserver } from "./lib/NavigatableObserver";
 import Navigo from "navigo";
 import { capitalize } from "lodash";
-import { BlogObserver } from "./lib/BlogObserver";
+import * as state from "./store";
+import {
+  StateSubject,
+  NavigatableObserver,
+  BlogObserver,
+  FormObserver
+} from "./lib";
 
 const router = new Navigo(window.location.origin);
 
-const appState = new StateSubject(state.Home);
-const pages = [];
-pages.push(new NavigatableObserver(appState, state.Bio));
-pages.push(new NavigatableObserver(appState, state.Form));
-pages.push(new BlogObserver(appState, state.Blog));
-pages.push(new NavigatableObserver(appState, state.Gallery));
-pages.push(new NavigatableObserver(appState, state.Home));
+const appState = new StateSubject(state.Home, state, router);
 
-//when state changes, we use a clear "setState" instead of the abiguois "render"
+const pages = [];
+pages.push(new NavigatableObserver(appState, appState.stateStore.Bio));
+pages.push(new FormObserver(appState, appState.stateStore.Form));
+pages.push(new BlogObserver(appState, appState.stateStore.Blog));
+pages.push(new NavigatableObserver(appState, appState.stateStore.Gallery));
+pages.push(new NavigatableObserver(appState, appState.stateStore.Home));
+
+//when state changes, we use a clear "setState" instead of the ambiguous "render"
 router
   .on({
-    ":page": params => appState.setState(state[capitalize(params.page)]),
-    "/": () => appState.setState(state.Home)
+    ":page": params =>
+      appState.setState(appState.stateStore[capitalize(params.page)]),
+    "/": () => appState.setState(appState.stateStore.Home)
   })
   .resolve();
